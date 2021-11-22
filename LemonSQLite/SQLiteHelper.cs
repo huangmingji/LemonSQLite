@@ -20,6 +20,15 @@ namespace Lemon
             _connection.Open();
             _command = new SQLiteCommand(_connection);
         }
+        
+        
+        public SQLiteHelper(string connectionString)
+        {
+            // "Data Source=D:\\data.db3";
+            _connection = new SQLiteConnection(connectionString);
+            _connection.Open();
+            _command = new SQLiteCommand(_connection);
+        }
 
         /// <summary>  
         /// 创建SQLite数据库文件 
