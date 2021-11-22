@@ -1,0 +1,5 @@
+/Users/huangmingji/projects/LemonSQLite/LemonSQLite/obj/Debug/net6.0/LemonSQLite.csproj.AssemblyReference.cache
+/Users/huangmingji/projects/LemonSQLite/LemonSQLite/obj/Debug/net6.0/LemonSQLite.GeneratedMSBuildEditorConfig.editorconfig
+/Users/huangmingji/projects/LemonSQLite/LemonSQLite/obj/Debug/net6.0/LemonSQLite.AssemblyInfoInputs.cache
+/Users/huangmingji/projects/LemonSQLite/LemonSQLite/obj/Debug/net6.0/LemonSQLite.AssemblyInfo.cs
+/Users/huangmingji/projects/LemonSQLite/LemonSQLite/obj/Debug/net6.0/LemonSQLite.csproj.CoreCompileInputs.cache
