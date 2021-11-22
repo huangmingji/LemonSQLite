@@ -13,15 +13,12 @@ namespace Lemon
         private readonly SQLiteCommand _command;
 
         public SQLiteHelper(IConfiguration configuration)
+            : this(configuration.GetConnectionString("SQLite"))
         {
-            // "Data Source=D:\\data.db3";
-            var connectionString = configuration.GetConnectionString("SQLite");
-            _connection = new SQLiteConnection(connectionString);
-            _connection.Open();
-            _command = new SQLiteCommand(_connection);
+            
         }
-        
-        
+
+
         public SQLiteHelper(string connectionString)
         {
             // "Data Source=D:\\data.db3";
@@ -33,13 +30,10 @@ namespace Lemon
         /// <summary>  
         /// 创建SQLite数据库文件 
         /// </summary>  
-        public void CreateDb()
+        public async Task CreateDb()
         {
-            _command.CommandText = "CREATE TABLE Test(id integer NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE)";
-            _command.ExecuteNonQuery();
-
-            _command.CommandText = "DROP TABLE Test";
-            _command.ExecuteNonQuery();
+            await ExecuteNonQueryAsync("CREATE TABLE Test(id integer NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE)");
+            await ExecuteNonQueryAsync("DROP TABLE Test");
         }
 
         /// <summary>  
@@ -48,7 +42,7 @@ namespace Lemon
         /// <param name="sql"> 要执行的增删改的SQL语句 </param> 
         /// <param name="parameters"> 执行增删改语句所需要的参数，参数必须以它们在SQL语句中的顺序为准 </param> 
         /// <returns></returns>  
-        public async Task<int> ExecuteNonQuery(string sql, SQLiteParameter[] parameters = null)
+        public async Task<int> ExecuteNonQueryAsync(string sql, SQLiteParameter[] parameters = null)
         {
             _command.CommandText = sql;
             if (parameters != null && parameters.Length > 0)
@@ -65,7 +59,7 @@ namespace Lemon
         /// <param name="sql"> 要执行的查询语句 </param> 
         /// <param name="parameters"> 执行SQL查询语句所需要的参数，参数必须以它们在SQL语句中的顺序为准 </param> 
         /// <returns></returns>  
-        public async Task<DbDataReader> ExecuteReader(string sql, SQLiteParameter[] parameters = null)
+        public async Task<DbDataReader> ExecuteReaderAsync(string sql, SQLiteParameter[] parameters = null)
         {
             _command.CommandText = sql;
             if (parameters != null && parameters.Length > 0)
@@ -93,20 +87,6 @@ namespace Lemon
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(_command);
             DataTable data = new DataTable();
             adapter.Fill(data);
-            return data;
-        }
-
-        /// <summary>  
-        /// 查询数据库中的所有数据类型信息 
-        /// </summary>  
-        /// <returns></returns>  
-        public DataTable GetSchema()
-        {
-            DataTable data = _connection.GetSchema("TABLES");
-            //foreach (DataColumn column in data.Columns) 
-            //{ 
-            //    Console.WriteLine(column.ColumnName); 
-            //} 
             return data;
         }
 
