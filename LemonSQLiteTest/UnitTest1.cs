@@ -23,6 +23,7 @@ namespace LemonSQLiteTest
                 Directory.CreateDirectory(dbDirectory);
             }
             string connectionString = $"Data Source={_dbPath}";
+            // string connectionString = $"Data Source={_dbPath};Password=123456";
             _sqLiteHelper = new SQLiteHelper(connectionString);
         }
 

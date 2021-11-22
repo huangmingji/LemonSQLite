@@ -18,13 +18,22 @@ namespace Lemon
             
         }
 
-
-        public SQLiteHelper(string connectionString)
+        public SQLiteHelper(string connectionString, string password = null)
         {
             // "Data Source=D:\\data.db3";
+            // "Data Source=D:\\data.db3;Password=123456";
             _connection = new SQLiteConnection(connectionString);
+            if (!string.IsNullOrWhiteSpace(password))
+            {
+                _connection.SetPassword(password);
+            }
             _connection.Open();
             _command = new SQLiteCommand(_connection);
+        }
+
+        public void ChangePassword(string newPassword)
+        {
+            _connection.ChangePassword(newPassword);
         }
 
         /// <summary>  
